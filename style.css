@@ -1,0 +1,32 @@
+/* 
+    Created on : 17-Mar-2015, 11:00:16
+    Author     : Abel Hii
+*/
+body{
+    text-align: center;
+    text-align: -webkit-center;
+    text-align: -moz-center;
+}
+#container{
+    padding:10px;
+    font-family: Arial, Sans-serif;
+    font-size: 15px;
+}
+label{
+    display: inline-block;
+    width: 180px; 
+    text-align: left;
+}
+input{
+    color:#333333;
+    border: 1px solid #c0c0c0;
+    background-color:#F2F3F3;
+    width: 100px;
+}
+#tt{
+    display: inline;
+    padding-left: 2.5em;
+}
+#t{
+    width: 70px;
+}
