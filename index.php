@@ -31,7 +31,7 @@
     <body>
         <?PHP
             include 'functions.php';
-         ?>
+        ?>
         <div id="container">
             <div id="header">
                 <img src ="imgs/cms.jpg" alt="logo"/>
