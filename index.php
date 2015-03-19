@@ -79,13 +79,13 @@
                         <td>
                             <?php
                             echo '<h3 id="tt">Total Income Tax for 2014:</h3>';
-                            echo $tFo;
+                            echo $tFo.'&nbsp';
                             ?>
                         </td>
                         <td>
                             <?php
                             echo '<h3 id="tt">Total Income Tax for 2015:</h3>';
-                            echo $tFi;
+                            echo $tFi.'&nbsp';
                             ?>
                         </td>
                         <td></td>
