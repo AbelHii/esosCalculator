@@ -5,7 +5,7 @@
 -->
 <html>
     <head>
-        <title>ESOS Tax Calculator</title>
+        <title>Income Tax Estimator</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="style.css"> 
@@ -21,6 +21,12 @@
 
                return true;
             }
+            //where num is the max value you allow the user to input
+            function maxVal(input, max)
+            {
+                if(input.value < 0){input.value = 0;}
+                if(input.value > max){input.value = max;}
+            }
             /*
             function swapHeading(word){
                 document.getElementById('heading').innerHTML = word;
@@ -35,65 +41,47 @@
         <div id="container">
             <div id="header">
                 <img src ="imgs/cms.jpg" alt="logo"/>
-                <h2 id="heading">CMSB ESOS Tax Calculator</h2>
+                <h2 id="heading">Income Tax Estimator</h2>
             </div>
             
             <form id="calc" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-                <label>Annual Salary Income</label>
-                <input type="text" name="annIncome" value="<?PHP print $val[0]; ?>" onkeypress="return isNumber(event)" maxlength="12">
-                <br><br>
-                <label>Annual Bonus</label>
-                <input type="text" name="bonus" value="<?PHP print $val[1]; ?>" onkeypress="return isNumber(event)" maxlength="12">
-                <br><br>
-                <label>Festive Gift</label>
-                <input type="text" name="festGift" value="<?PHP print $val[2]; ?>" onkeypress="return isNumber(event)" maxlength="12">
-                <br><br>
-                
-                <b><label>Projected Remuneration:</label></b>
-                <?php if($PR != ""){echo number_format($PR);} ?>
+                <label>Total Annual Remuneration <br><i style="font-size:12px">(Please refer to Part C "Total" of the EA Form)</i></label>
+                <input type="text" name="annIncome" value="<?PHP print $val[0]; ?>" onkeypress="return isNumber(event)" onkeyup="maxVal(input)" maxlength="12">
                 <br><br>
                 <label>Individual Tax Relief</label>
-                <input type="text" name="TR" value="<?PHP print $val[3]; ?>" onkeypress="return isNumber(event)" maxlength="12">
+                <input type="text" name="TR" value="9000" readonly>
                 <br><br>
-                <label>EPF Relief</label>
-                <input type="text" name="EPF" value="<?PHP print $val[4]; ?>" onkeypress="return isNumber(event)" maxlength="12">
+                <label>EPF Relief <i style="font-size:12px">(Max 6000)</i></label>
+                <input type="text" name="EPF" id="EPF" value="<?PHP print $val[4]; ?>" onkeypress="return isNumber(event)" onkeyup="maxVal(this, 6000)" maxlength="4">
                 <br><br>
                 <label>Dependent Relief</label>
-                <input type="text" name="DR" value="<?PHP print $val[5]; ?>" onkeypress="return isNumber(event)" maxlength="12">
+                <input type="text" name="DR" value="<?PHP print $val[5]; ?>" onkeypress="return isNumber(event)" onkeyup="maxVal(input)" maxlength="12">
                 <br><br>
                 <label>Other Relief</label>
-                <input type="text" name="OR" value="<?PHP print $val[6]; ?>" onkeypress="return isNumber(event)" maxlength="12">
+                <input type="text" name="OR" value="<?PHP print $val[6]; ?>" onkeypress="return isNumber(event)" onkeyup="maxVal(input)" maxlength="12">
                 <br><br>
-                <label>ESOS Perquisite</label>
-                <input type="text" name="ESOS" value="<?PHP print $val[7]; ?>" onkeypress="return isNumber(event)" maxlength="12">
-                <br><br>
-                
-                <button type="submit" name="submit1" class="button">Calculate</button>
-                <?php
-                    echo "<h2>Taxable Income</h2>";
-                    if($TI != ""){echo number_format($TI);}
-                ?>
-                <br>
                 <table>
                     <tr>
                         <td>
-                            <?php
-                            echo '<h3 id="tt">Total Income Tax for 2014:</h3>';
-                            echo $tFo.'&nbsp';
-                            ?>
-                        </td>
-                        <td>
-                            <?php
-                            echo '<h3 id="tt">Total Income Tax for 2015:</h3>';
-                            echo $tFi.'&nbsp';
-                            ?>
+                            <h3>Estimated Total Income Tax for 2014:</h3>
                         </td>
                         <td></td>
                     </tr>
                     <tr>
-                        <td><h3>Tax Paid (refer to EA Form):</h3></td>
-                        <td><input id="t" type="text" name="tFour" value="<?PHP print $val[8]; ?>" onkeypress="return isNumber(event)" maxlength="10"></td>
-                        <td><input id="t" type="text" name="tFive" value="<?PHP print $val[9]; ?>" onkeypress="return isNumber(event)" maxlength="10"></td>
+                        <td>
+                            <h3 id="brr">Tax Paid:</h3>
+                            <b style="font-size:12px">(Refer to EA Form, Part D1.)</b>
+                        </td>
+                        <td><input id="t" type="text" name="tpFour" value="<?PHP print $val[8]; ?>" onkeypress="return isNumber(event)" onkeyup="maxVal(input)" maxlength="10"></td>
+                        <br>
+                    </tr>
+                    <tr>
+                        <td>
+                            <br>
+                            <h3 id="brr">Zakat Paid:</h3>
+                            <b style="font-size:12px">(Refer to EA Form, Part D3. where applicable)</b>
+                        </td>
+                        <td><input id="t" type="text" name="zakat" value="<?PHP print $val[10]; ?>" onkeypress="return isNumber(event)" onkeyup="maxVal(input)" maxlength="10"></td>
                     </tr>
                     <tr>
                         <td></td>
@@ -101,17 +89,11 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <td><h3>Additional Tax Payable to LHDN:</h3></td>
+                        <td><h3>Estimated Additional Tax Payable to LHDN:</h3></td>
                         <td>
                             <?php 
-                                $four = $tFo - $tFour;
-                                echo '<b style="color: #ff0000">'.$four.'</b>';
-                            ?>
-                        </td>
-                        <td>
-                            <?php
-                                $five = $tFi - $tFive;
-                                echo '<b style="color: #ff0000">'.$five.'</b>';
+                                $four = $tFo - $tpFour - $zakat ;
+                                echo '<b style="color: #ff0000">&nbsp&nbsp'.round($four,2).'</b>';
                             ?>
                         </td>
                     </tr>

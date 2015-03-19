@@ -2,8 +2,8 @@
 <?php
         //define variables
         $annIncome = $bonus = $festGift = $PR = $TR = $EPF = $ESOS = $TI = $DR = $OR = "";
-        $tax = $num = $tFour = $tFive = $tFo = $tFi = "";
-        $val = new SplFixedArray(10);
+        $tax = $num = $tpFour = $tpFive = $tFo = $tFi = $zakat = "";
+        $val = new SplFixedArray(11);
 
         //does the calculations
         function taxCalc($ci, $rate, $rm, $sum){
@@ -38,14 +38,14 @@
             $annIncome = test_input(filter_input(INPUT_POST, "annIncome"));
             $bonus = test_input(filter_input(INPUT_POST, "bonus"));
             $festGift = test_input(filter_input(INPUT_POST, "festGift"));
-            $PR = $annIncome + $bonus + $festGift;
             $TR = test_input(filter_input(INPUT_POST, "TR"));
             $EPF = test_input(filter_input(INPUT_POST, "EPF"));
             $DR = test_input(filter_input(INPUT_POST, "DR"));
             $OR = test_input(filter_input(INPUT_POST, "OR"));
             $ESOS = test_input(filter_input(INPUT_POST, "ESOS"));
-            $tFour = test_input(filter_input(INPUT_POST, "tFour"));
-            $tFive = test_input(filter_input(INPUT_POST, "tFive"));
+            $tpFour = test_input(filter_input(INPUT_POST, "tpFour"));
+            $tpFive = test_input(filter_input(INPUT_POST, "tpFive"));
+            $zakat = test_input(filter_input(INPUT_POST, "zakat"));
             $val[0] = test_input(filter_input(INPUT_POST, "annIncome"));
             $val[1] = test_input(filter_input(INPUT_POST, "bonus"));
             $val[2] = test_input(filter_input(INPUT_POST, "festGift"));
@@ -54,9 +54,10 @@
             $val[5] = test_input(filter_input(INPUT_POST, "DR"));
             $val[6] = test_input(filter_input(INPUT_POST, "OR"));
             $val[7] = test_input(filter_input(INPUT_POST, "ESOS"));
-            $val[8] = test_input(filter_input(INPUT_POST, "tFour"));
-            $val[9] = test_input(filter_input(INPUT_POST, "tFive"));
-            $TI = $PR - $TR - $EPF - $OR - $DR + $ESOS;
+            $val[8] = test_input(filter_input(INPUT_POST, "tpFour"));
+            $val[9] = test_input(filter_input(INPUT_POST, "tpFive"));
+            $val[10] = test_input(filter_input(INPUT_POST, "zakat"));
+            $TI = $annIncome - $TR - $EPF - $OR - $DR;
             $tFo = tax2014($TI);
             $tFi = tax2015($TI);
         }else{

@@ -8,14 +8,15 @@ body{
     text-align: -moz-center;
 }
 #container{
-    padding:10px;
+    padding:5px;
     font-family: Arial, Sans-serif;
     font-size: 15px;
 }
 label{
     display: inline-block;
-    width: 180px; 
+    width: 245px; 
     text-align: left;
+    padding-right: 10px;
 }
 input{
     color:#333333;
@@ -23,10 +24,11 @@ input{
     background-color:#F2F3F3;
     width: 100px;
 }
-#tt{
-    display: inline;
-    padding-left: 2.5em;
-}
+/*tax paid and zakat*/
 #t{
     width: 70px;
+}
+/*remove h3's tag*/
+#brr{
+    margin: 0px;
 }
